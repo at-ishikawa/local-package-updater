@@ -1,1 +1,1 @@
-# go-cron-updater
+# local-package-updater
