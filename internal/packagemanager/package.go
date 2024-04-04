@@ -8,6 +8,7 @@ import (
 
 type Plugin interface {
 	IsSudoRequired() bool
+	IsCommandInstalled() bool
 	Update() error
 }
 
@@ -29,6 +30,10 @@ func NewGeneralManager(args CLIArgs, isSudoRequired bool) GeneralManager {
 
 func (gpm GeneralManager) IsSudoRequired() bool {
 	return gpm.isSudoRequired
+}
+
+func (gpm GeneralManager) IsCommandInstalled() bool {
+	return checkCommandExists(gpm.cliArgs[0])
 }
 
 func (gpm GeneralManager) Update() error {
@@ -55,6 +60,10 @@ func NewAptManager(isSudoRequired bool) *AptManager {
 
 func (aptManager AptManager) IsSudoRequired() bool {
 	return aptManager.isSudoRequired
+}
+
+func (aptManager AptManager) IsCommandInstalled() bool {
+	return checkCommandExists("apt")
 }
 
 func (aptManager AptManager) ListUpgradablePackages() ([]string, error) {

@@ -14,6 +14,11 @@ func (CLIArgs CLIArgs) String() string {
 	return strings.Join(CLIArgs, " ")
 }
 
+func checkCommandExists(command string) bool {
+	_, err := exec.LookPath(command)
+	return err == nil
+}
+
 var runCommand = func(args CLIArgs) (string, string, error) {
 	var stdoutBuffer, stderrBuffer bytes.Buffer
 	cmd := exec.Command(args[0], args[1:]...)

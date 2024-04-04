@@ -53,11 +53,17 @@ func runMain() (int, error) {
 				packagemanager.NewGeneralManager(packagemanager.CLIArgs{
 					"kubectl", "krew", "upgrade",
 				}, false),
+				packagemanager.NewGeneralManager(packagemanager.CLIArgs{
+					"brew", "update",
+				}, false),
 			}
 
 			for _, isSudoRequired := range []bool{true, false} {
 				for _, pluginManager := range pluginManagers {
 					if pluginManager.IsSudoRequired() != isSudoRequired {
+						continue
+					}
+					if ok := pluginManager.IsCommandInstalled(); !ok {
 						continue
 					}
 
