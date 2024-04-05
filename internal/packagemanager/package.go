@@ -63,7 +63,9 @@ func (aptManager AptManager) IsSudoRequired() bool {
 }
 
 func (aptManager AptManager) IsCommandInstalled() bool {
-	return checkCommandExists("apt")
+	// there is another apt command in non Ubuntu
+	// so check apt command by apt-get
+	return checkCommandExists("apt-get")
 }
 
 func (aptManager AptManager) ListUpgradablePackages() ([]string, error) {

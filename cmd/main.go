@@ -53,6 +53,10 @@ func runMain() (int, error) {
 				packagemanager.NewGeneralManager(packagemanager.CLIArgs{
 					"kubectl", "krew", "upgrade",
 				}, false),
+				// Update the brew casks if it's broken
+				packagemanager.NewGeneralManager(packagemanager.CLIArgs{
+					"brew", "tap", "--repair",
+				}, false),
 				packagemanager.NewGeneralManager(packagemanager.CLIArgs{
 					"brew", "update",
 				}, false),
